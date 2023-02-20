@@ -1,0 +1,21 @@
+---
+- name: Installing packages
+  hosts: group1
+  become: true
+  tasks:
+     - name: install_mysql
+       apt:
+          name: mysql
+          state: latest
+       when: ansible_os_family == 'Redhat'
+          
+     - name: install_mvn
+       apt:
+         name: git
+         state: latest
+       when: ansible_os_family== 'Debian'
+
+     - name: copying ip address of target machine   
+       template: 
+         src: 1.j2
+         dest: /home/ubuntu/
